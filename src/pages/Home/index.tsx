@@ -43,6 +43,13 @@ export function Home() {
 			<Posts>
 				{posts.length > 0 && <h1>Feed</h1>}
 
+				{!(posts.length > 0) && (
+					<h1 style={{ textAlign: 'center' }}>
+						Nenhuma ponstagem encontrada.{' '}
+						<strong>Adicione uma nova postagem</strong>
+					</h1>
+				)}
+
 				{posts.map((post) => (
 					<Post
 						key={post.id}
