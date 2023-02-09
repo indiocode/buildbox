@@ -82,5 +82,6 @@ export const Button = styled.button<ButtonProps>`
 		!formValid &&
 		css`
 			cursor: not-allowed;
+			pointer-events: none;
 		`}
 `;

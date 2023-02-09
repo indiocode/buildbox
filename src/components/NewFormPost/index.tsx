@@ -9,6 +9,7 @@ import {
 	NewFormPostContainer,
 	Textarea,
 } from './styles';
+import { ImageUpload } from '../ImageUpload';
 
 const newPostFormSchema = zod.object({
 	name: zod.string().min(1),
@@ -31,6 +32,10 @@ export function NewFormPost() {
 
 	return (
 		<NewFormPostContainer onSubmit={handleSubmit(handleNewPost)}>
+			<div>
+				<ImageUpload />
+			</div>
+
 			<Input
 				placeholder="Digite seu nome"
 				{...register('name')}
