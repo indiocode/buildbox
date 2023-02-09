@@ -10,6 +10,8 @@ import {
 	Textarea,
 } from './styles';
 import { ImageUpload } from '../ImageUpload';
+import { useContext } from 'react';
+import { PostsContext } from '~/contexts/PostContext';
 
 const newPostFormSchema = zod.object({
 	name: zod.string().min(1),
@@ -19,6 +21,8 @@ const newPostFormSchema = zod.object({
 type NewPostFormInputs = zod.infer<typeof newPostFormSchema>;
 
 export function NewFormPost() {
+	const { addNewPost } = useContext(PostsContext);
+
 	const { register, watch, handleSubmit, reset } = useForm<NewPostFormInputs>({
 		resolver: zodResolver(newPostFormSchema),
 	});
@@ -26,15 +30,13 @@ export function NewFormPost() {
 	const isValidForm = watch('name')?.length > 0 && watch('message')?.length > 0;
 
 	function handleNewPost(data: NewPostFormInputs) {
-		console.log(data);
+		addNewPost(data);
 		reset();
 	}
 
 	return (
 		<NewFormPostContainer onSubmit={handleSubmit(handleNewPost)}>
-			<div>
-				<ImageUpload />
-			</div>
+			<ImageUpload />
 
 			<Input
 				placeholder="Digite seu nome"

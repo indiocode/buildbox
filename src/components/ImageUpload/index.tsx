@@ -1,19 +1,22 @@
 import { TrashSimple } from 'phosphor-react';
-import { ChangeEvent, createRef, useState } from 'react';
+import { ChangeEvent, createRef, useContext } from 'react';
 import { ImageDefault } from '~/assets';
+import { PostsContext } from '~/contexts/PostContext';
 import { ImageUploadContainer, ImageContainer } from './styles';
 
 export function ImageUpload() {
-	const [image, setImage] = useState<string | null>(null);
+	const { setImageUrlToCurrentPost, removeImageUrlToCurrentPost, currentPost } =
+		useContext(PostsContext);
+
 	const fileInputRef = createRef<HTMLInputElement>();
 
 	function handleUploadImage(event: ChangeEvent<HTMLInputElement>) {
-		setImage(URL.createObjectURL(event.target.files![0]));
+		setImageUrlToCurrentPost(URL.createObjectURL(event.target.files![0]));
 	}
 
 	function handleRemoveUploadImage() {
-		URL.revokeObjectURL(image as string);
-		setImage(null);
+		URL.revokeObjectURL(currentPost?.autor.image.url as string);
+		removeImageUrlToCurrentPost();
 		fileInputRef.current!.value = '';
 	}
 
@@ -30,14 +33,13 @@ export function ImageUpload() {
 					ref={fileInputRef}
 					onChange={handleUploadImage}
 				/>
-				{/* <img src={(image as string) || 'https://picsum.photos/88'} /> */}
-				<img src={(image as string) || ImageDefault} />
+				<img src={currentPost?.autor.image.url || ImageDefault} />
 			</ImageContainer>
 
-			{image && (
+			{currentPost?.autor.image.url && (
 				<button onClick={handleRemoveUploadImage}>
 					<TrashSimple
-						size={18}
+						size={20}
 						color="#d65923"
 					/>
 				</button>
