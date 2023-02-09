@@ -1,9 +1,13 @@
+import { Header } from '~/components/Header';
+import { NewFormPost } from '~/components/NewFormPost';
 import { HomeContainer } from './styles';
 
 export function Home() {
 	return (
 		<HomeContainer>
-			<h1>Home</h1>
+			<Header />
+
+			<NewFormPost />
 		</HomeContainer>
 	);
 }

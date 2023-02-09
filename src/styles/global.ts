@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     :focus{
         outline: 0;
-        box-shadow: 0 0 0 2px ${({ theme }) => theme['dark-lime-green']};
+        box-shadow: 0 0 0 1px ${({ theme }) => theme['dark-lime-green']};
     }
     body{
         background-color: ${({ theme }) => theme['black']};
