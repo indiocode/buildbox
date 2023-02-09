@@ -48,17 +48,20 @@ export const FormFooter = styled.div`
 
 const BUTTON_TYPE = {
 	background: {
-		primary: 'transparent',
-		secondary: 'brownish-grey',
+		default: 'transparent',
+		primary: 'brownish-grey',
+		secondary: 'dark-lime-green',
 	},
 	color: {
-		primary: 'brownish-grey',
-		secondary: 'black-three',
+		default: 'brownish-grey',
+		primary: 'black-three',
+		secondary: 'white',
 	},
 } as const;
 
 interface ButtonProps {
 	variant: keyof typeof BUTTON_TYPE.background;
+	formValid?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -74,4 +77,10 @@ export const Button = styled.button<ButtonProps>`
 	background-color: ${({ theme, variant }) =>
 		theme[BUTTON_TYPE.background[variant]]};
 	color: ${({ theme, variant }) => theme[BUTTON_TYPE.color[variant]]};
+
+	${({ formValid }) =>
+		!formValid &&
+		css`
+			cursor: not-allowed;
+		`}
 `;
