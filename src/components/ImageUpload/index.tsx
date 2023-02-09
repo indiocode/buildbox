@@ -1,42 +1,44 @@
 import { TrashSimple } from 'phosphor-react';
-import { ChangeEvent, createRef, useContext } from 'react';
+import { ChangeEvent, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { ImageDefault } from '~/assets';
-import { PostsContext } from '~/contexts/PostContext';
 import { ImageUploadContainer, ImageContainer } from './styles';
 
 export function ImageUpload() {
-	const { setImageUrlToCurrentPost, removeImageUrlToCurrentPost, currentPost } =
-		useContext(PostsContext);
+	const { register, setValue, watch } = useFormContext();
 
-	const fileInputRef = createRef<HTMLInputElement>();
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	function handleImageContainerClick() {
+		inputRef.current?.click();
+	}
+
+	const image = watch('image');
 
 	function handleUploadImage(event: ChangeEvent<HTMLInputElement>) {
-		setImageUrlToCurrentPost(URL.createObjectURL(event.target.files![0]));
+		setValue('image', URL.createObjectURL(event.target.files![0]));
 	}
 
 	function handleRemoveUploadImage() {
-		URL.revokeObjectURL(currentPost?.autor.image.url as string);
-		removeImageUrlToCurrentPost();
-		fileInputRef.current!.value = '';
-	}
-
-	function handleClick() {
-		fileInputRef.current!.click();
+		URL.revokeObjectURL(image as string);
+		setValue('image', '');
+		inputRef.current!.value = '';
 	}
 
 	return (
 		<ImageUploadContainer>
-			<ImageContainer onClick={handleClick}>
+			<ImageContainer onClick={handleImageContainerClick}>
 				<input
+					{...register('image')}
 					type="file"
 					accept="image/*"
-					ref={fileInputRef}
+					ref={inputRef}
 					onChange={handleUploadImage}
 				/>
-				<img src={currentPost?.autor.image.url || ImageDefault} />
+				<img src={image || ImageDefault} />
 			</ImageContainer>
 
-			{currentPost?.autor.image.url && (
+			{image && (
 				<button onClick={handleRemoveUploadImage}>
 					<TrashSimple
 						size={20}

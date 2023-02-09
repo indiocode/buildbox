@@ -21,3 +21,17 @@ export const Posts = styled.main`
 		margin-bottom: 0.5rem;
 	}
 `;
+
+export const NewFormPostContainer = styled.form`
+	margin: 0 auto;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	max-width: 32.25rem;
+	width: 100%;
+	margin-top: calc(5.8125rem + 2.5625rem);
+	border: 1px solid ${({ theme }) => theme['greyish-brown-two']};
+	background-color: ${({ theme }) => theme['black-three']};
+	border-radius: 3px;
+`;

@@ -1,41 +1,15 @@
-import * as zod from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-
-import {
-	Button,
-	FormFooter,
-	Input,
-	NewFormPostContainer,
-	Textarea,
-} from './styles';
+import { Button, FormFooter, Input, Textarea } from './styles';
 import { ImageUpload } from '../ImageUpload';
-import { useContext } from 'react';
-import { PostsContext } from '~/contexts/PostContext';
-
-const newPostFormSchema = zod.object({
-	name: zod.string().min(1),
-	message: zod.string().min(1),
-});
-
-type NewPostFormInputs = zod.infer<typeof newPostFormSchema>;
+import { useFormContext } from 'react-hook-form';
 
 export function NewFormPost() {
-	const { addNewPost } = useContext(PostsContext);
+	const { register, watch } = useFormContext();
 
-	const { register, watch, handleSubmit, reset } = useForm<NewPostFormInputs>({
-		resolver: zodResolver(newPostFormSchema),
-	});
-
-	const isValidForm = watch('name')?.length > 0 && watch('message')?.length > 0;
-
-	function handleNewPost(data: NewPostFormInputs) {
-		addNewPost(data);
-		reset();
-	}
+	const isValidForm =
+		watch('name')?.length > 0 && watch('message')?.length > 0 && watch('image');
 
 	return (
-		<NewFormPostContainer onSubmit={handleSubmit(handleNewPost)}>
+		<>
 			<ImageUpload />
 
 			<Input
@@ -60,6 +34,6 @@ export function NewFormPost() {
 					Publicar
 				</Button>
 			</FormFooter>
-		</NewFormPostContainer>
+		</>
 	);
 }

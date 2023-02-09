@@ -9,4 +9,5 @@ export interface Post {
 export interface NewPostForm {
 	message: string;
 	name: string;
+	image: string;
 }
