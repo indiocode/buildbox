@@ -48,8 +48,6 @@ export function PostsProvider({ children }: PostProviderProps) {
 		localStorage.setItem(STORATE_KEY, stateJSON);
 	}, [posts]);
 
-	console.log({ posts });
-
 	return (
 		<PostsContext.Provider
 			value={{

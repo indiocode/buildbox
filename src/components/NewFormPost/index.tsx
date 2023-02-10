@@ -3,10 +3,17 @@ import { ImageUpload } from '../ImageUpload';
 import { useFormContext } from 'react-hook-form';
 
 export function NewFormPost() {
-	const { register, watch } = useFormContext();
+	const { register, watch, reset } = useFormContext();
 
 	const isValidForm =
 		watch('name')?.length > 0 && watch('message')?.length > 0 && watch('image');
+
+	const isPartialValidForm =
+		watch('name')?.length > 0 || watch('message')?.length > 0 || watch('image');
+
+	function handleResetForm() {
+		reset();
+	}
 
 	return (
 		<>
@@ -23,9 +30,10 @@ export function NewFormPost() {
 			<FormFooter>
 				<Button
 					variant="default"
-					formValid={isValidForm}
+					formValid={isPartialValidForm}
+					onClick={handleResetForm}
 				>
-					Descartar
+					<s>Descartar</s>
 				</Button>
 				<Button
 					variant={!isValidForm ? 'primary' : 'secondary'}
