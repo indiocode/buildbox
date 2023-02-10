@@ -61,7 +61,7 @@ para a implementação:
 ## 🔖 Layout
 
 Você pode visualizar o layout do projeto através
-[DESSE LINK](https://github.com/indiocode/ibox).
+[DESSE LINK](https://github.com/Buildbox-ItSolutions/web-developer-challenge).
 
 ## :memo: Licença
 
