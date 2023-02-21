@@ -1,12 +1,15 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { ReactElement } from 'react';
 import { useContext } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import * as zod from 'zod';
+
 import { Header } from '~/components/Header';
 import { NewFormPost } from '~/components/NewFormPost';
 import { Post } from '~/components/Post';
 import { PostsContext } from '~/contexts/PostContext';
+
 import { HomeContainer, NewFormPostContainer, Posts } from './styles';
-import * as zod from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
 
 const newPostFormSchema = zod.object({
 	name: zod.string().min(1),
@@ -16,7 +19,7 @@ const newPostFormSchema = zod.object({
 
 export type NewPostFormInputs = zod.infer<typeof newPostFormSchema>;
 
-export function Home() {
+export function Home(): ReactElement {
 	const { posts, addNewPost } = useContext(PostsContext);
 
 	const newPostForm = useForm<NewPostFormInputs>({
@@ -25,7 +28,7 @@ export function Home() {
 
 	const { handleSubmit, reset } = newPostForm;
 
-	function handleNewPost(data: NewPostFormInputs) {
+	function handleNewPost(data: NewPostFormInputs): void {
 		addNewPost(data);
 		reset();
 	}

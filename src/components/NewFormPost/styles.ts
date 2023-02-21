@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import styled, { css } from 'styled-components';
 
 const Pattern = css`

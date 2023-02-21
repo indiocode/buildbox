@@ -1,25 +1,28 @@
 import { TrashSimple } from 'phosphor-react';
-import { ChangeEvent, useRef } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
+import { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ImageDefault } from '~/assets';
-import { ImageUploadContainer, ImageContainer } from './styles';
 
-export function ImageUpload() {
+import { ImageDefault } from '~/assets';
+
+import { ImageContainer, ImageUploadContainer } from './styles';
+
+export function ImageUpload(): ReactElement {
 	const { register, setValue, watch } = useFormContext();
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	function handleImageContainerClick() {
+	function handleImageContainerClick(): void {
 		inputRef.current?.click();
 	}
 
 	const image = watch('image');
 
-	function handleUploadImage(event: ChangeEvent<HTMLInputElement>) {
+	function handleUploadImage(event: ChangeEvent<HTMLInputElement>): void {
 		setValue('image', URL.createObjectURL(event.target.files![0]));
 	}
 
-	function handleRemoveUploadImage() {
+	function handleRemoveUploadImage(): void {
 		URL.revokeObjectURL(image as string);
 		setValue('image', '');
 		inputRef.current!.value = '';

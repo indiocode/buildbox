@@ -1,8 +1,11 @@
-import { Button, FormFooter, Input, Textarea } from './styles';
-import { ImageUpload } from '../ImageUpload';
+import type { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-export function NewFormPost() {
+import { ImageUpload } from '../ImageUpload';
+
+import { Button, FormFooter, Input, Textarea } from './styles';
+
+export function NewFormPost(): ReactElement {
 	const { register, watch, reset } = useFormContext();
 
 	const isValidForm =
@@ -11,7 +14,7 @@ export function NewFormPost() {
 	const isPartialValidForm =
 		watch('name')?.length > 0 || watch('message')?.length > 0 || watch('image');
 
-	function handleResetForm() {
+	function handleResetForm(): void {
 		reset();
 	}
 

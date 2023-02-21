@@ -1,17 +1,20 @@
 import { XCircle } from 'phosphor-react';
+import type { ReactElement } from 'react';
 import { useContext } from 'react';
+
 import { PostsContext } from '~/contexts/PostContext';
-import { Post as PostModel } from '~/models/Post';
+import type { Post as PostModel } from '~/models/Post';
+
 import { AuthorPost, PostContainer, PostContent, PostText } from './styles';
 
 interface PostProps {
 	post: PostModel;
 }
 
-export function Post({ post }: PostProps) {
+export function Post({ post }: PostProps): ReactElement {
 	const { removePost } = useContext(PostsContext);
 
-	function handleRemovePost() {
+	function handleRemovePost(): void {
 		removePost(post);
 	}
 
